@@ -1,1 +1,1 @@
-Looking back and observing how progress has materialized due to practice, intellect, creativity, and innovation is such a rewarding and motivational impetus to push forward towards that idea that changes the world.  
+Looking back and observing how progress has materialized due to practice, intellect, creativity, and innovation is such a rewarding and motivational impetus to push forward towards that unprecedented idea lingering in one's mind that changes the world.  
