@@ -12,6 +12,6 @@ def delete_ds_store_files(directory):
                     print(f'Error deleting {file_path}: {e}')
 
 # Specify the directory to clean
-directory = '/Users/damiamalfaro/Desktop/Materialization/Excel'
+directory = 'FILE'
 
 delete_ds_store_files(directory)
