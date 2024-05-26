@@ -2,45 +2,42 @@ import pandas as pd
 import os
 from openpyxl import load_workbook
 from datetime import datetime
-
+import matplotlib.pyplot as plt
+import numpy as np
 
 """
 The function that starts it all.
 """
 def beginning(file1,file2,file3,file4):
-  print("MATHEMATICS | PROGRAMMING | PROFESSION | FINANCE")
+  print("\nMATHEMATICS | PROGRAMMING | PROFESSION | FINANCE\n")
 
   files = [file1,file2,file3,file4]
-
+        
   sidesofsquare = {"MATHEMATICS":mathematics,
                    "PROGRAMMING":programming,
                    "PROFESSION":profession,
                    "FINANCE":finance}
-
+                        
   choice = input("Side: ").upper()
   
-  print(sidesofsquare)
-
-
-
-  keys_list = list(sidesofsquare.keys()).index(choice)
-
   if choice in sidesofsquare:
-    sidesofsquare[choice](choice,files[keys_list])
+      pass
   else:
-    print("Are you cognitively impaired...")
-    
+    print("\nAre you cognitively impaired?...\n")
+    return
+ 
+  keys_list = list(sidesofsquare.keys()).index(choice)
+  sidesofsquare[choice](choice,files[keys_list])
 
 """
 writing() will be used to record instances of points of time
 """
 def writing(self,action):
-    # Importing & Converting Excel File
  excel_file = self.file
 
  book = load_workbook(excel_file)
 
-    # Getting instance of point of time
+  # Getting instance of point of time
  now = datetime.now()
 
  df = pd.DataFrame({
@@ -73,35 +70,87 @@ def writing(self,action):
 
 
 """
-Mathematics
+--------------------
+Mathematics Quadrant
+--------------------
 """
 class mathematics():
   def __init__(self,choice,file):
 
     self.choice = choice
     self.file = file
-    print("\nOUTSET | HALT | VIEW | MILESTONE | TESTING")
+    print("\nOUTSET | HALT | VIEW | MILESTONE | TESTING\n")
 
     mathematicsSides = {"OUTSET":self.Outset,
-                        "HALT":self.Halt}
+                        "HALT":self.Halt,
+                        "VIEW":self.View,
+                        "MILESTONE":self.Milestone,
+                        "TESTING":self.Test}
 
     mathematics_choice = input(f"{choice}-Side: ").upper()
 
     if mathematics_choice in mathematicsSides:
       mathematicsSides[mathematics_choice]()
     else:
-      print("\nOh, I see, you are a dumbass...")
+      print("\nOh, I see, you are a dumbass...\n")
 
+  """
+  Annotates the beginning instance time of the Quadrant
+  """
   def Outset(self):
     action = "OUTSET"
     writing(self,action)
 
+  """
+  Annotates the final instance time of the Quadrant
+  """
   def Halt(self):
     action = "HALT"
     writing(self,action)
 
-  def View():
-    pass
+
+  """
+  Portrays the amount of hours spend on the Quadrant, and a
+  Cartesian Plane (only the positive values), or also known as
+  a scatter plot of the amount of time (in hours) with respect to
+  the time of the day the quadrant ended.
+  """
+  def View(self):
+    # I. First we read the excel that stores the parameters
+    view_outsets = pd.read_excel(self.file,sheet_name=0,header=None)
+    view_halts = pd.read_excel(self.file,sheet_name=1,header=None)
+
+    # II. We prepare to compare by listing all instances
+    outsets = view_outsets.values.tolist()
+    halts = view_halts.values.tolist()
+
+    # III. Compare hours and minutes of outsets and halts for further ploting
+
+    xaxis = []
+    yaxis = []
+
+    for x, y in zip(outsets,halts):
+       hour = float(y[3]-x[3])
+       minute = round((y[4]/60)-(x[4]/60),3)
+       hours = hour + minute
+       xaxis.append(round(hours,3))
+       yaxis.append(round(y[3]+(x[3]/60),3))
+
+    totalhours = round(sum(xaxis),2)
+      
+    # IV. Now we need the x and y axis; i.e hours, time of the day respectively
+    a = np.array(xaxis)
+    b = np.array(yaxis)
+    plt.scatter(a,b)
+    plt.title(f"Total Hours {totalhours}")
+    plt.xlabel("Hours")
+    plt.ylabel("Ending Day Time")
+    plt.show()
+
+          
+      
+          
+       
 
   def Milestone():
     pass
@@ -110,7 +159,9 @@ class mathematics():
     pass
 
 """
-Programming
+--------------------
+Programming Quadrant
+--------------------
 """
 class programming():
   def __init__(self,choice,file):
@@ -136,7 +187,11 @@ class programming():
     action = "HALT"
     writing(self,action)
 
-
+"""
+-------------------
+Profession Quadrant
+-------------------
+"""
 class profession():
   def __init__(self,choice,file):
     print("\nOUTSET | HALT | VIEW | MILESTONE")
@@ -146,6 +201,12 @@ class profession():
     pass
 
 
+
+"""
+----------------
+Finance Quadrant
+----------------
+"""
 class finance():
   def __init__(self,choice):
     print("\nOUTSET | HALT | VIEW | MILESTONE")
@@ -159,8 +220,8 @@ class finance():
 
 if __name__ == "__main__":
     # File directory in your machine
-    directory = ""
-
+    directory = "/Users/damiamalfaro/Desktop/Materialization/Excel"
+    
     # Allocates Excel Files into the program
     files = os.listdir(directory)
     sorted_files = sorted(files, key=lambda x: int(x[0]))
