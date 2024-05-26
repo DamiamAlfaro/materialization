@@ -119,13 +119,36 @@ class mathematics():
     # I. First we read the excel that stores the parameters
     view_outsets = pd.read_excel(self.file,sheet_name=0,header=None)
     view_halts = pd.read_excel(self.file,sheet_name=1,header=None)
+    view_accuracy = pd.read_excel(self.file,sheet_name=4,header=None)
 
     # II. We prepare to compare by listing all instances
     outsets = view_outsets.values.tolist()
     halts = view_halts.values.tolist()
+    accuracy = view_accuracy.values.tolist()
+    
 
-    # III. Compare hours and minutes of outsets and halts for further ploting
+    # III. Correlating the accuracy with the dates
+    accuracy_dates = [date[:-1] for date in accuracy]
+    accuracy_rates = [rate[3] for rate in accuracy]
 
+    datesfloatForm = []
+    for p in range(len(halts)):
+       firstthreeDates = halts[p][:-2]
+       comparison = []
+       for q in firstthreeDates:
+          comparison.append(float(q))
+       datesfloatForm.append(comparison)
+    
+
+    countingAccuracies = []
+    for instance in datesfloatForm:
+      if instance in accuracy_dates:
+        instanceIndex = accuracy_dates.index(instance)
+        countingAccuracies.append(accuracy_rates[instanceIndex])
+      else:
+        countingAccuracies.append(0)
+
+    # IV. Compare hours and minutes of outsets and halts for further ploting
     xaxis = []
     yaxis = []
 
@@ -138,17 +161,17 @@ class mathematics():
 
     totalhours = round(sum(xaxis),2)
       
-    # IV. Now we need the x and y axis; i.e hours, time of the day respectively
+    # V. Now we need the x and y axis; i.e hours, time of the day respectively
     a = np.array(xaxis)
     b = np.array(yaxis)
-    plt.scatter(a,b)
+    colors = np.array(countingAccuracies)
+    plt.scatter(a,b,c=colors,cmap='plasma')
+    plt.colorbar()
     plt.title(f"Total Hours {totalhours}")
     plt.xlabel("Hours")
     plt.ylabel("Ending Day Time")
     plt.show()
 
-          
-      
           
        
 
@@ -168,7 +191,7 @@ class programming():
     self.choice = choice
     self.file = file
       
-    print("\nOUTSET | HALT | VIEW | MILESTONE")
+    print("\nOUTSET | HALT | VIEW | MILESTONE\n")
     programmingSides = {"OUTSET":self.Outset,
                         "HALT":self.Halt}
     programming_choice = input(f"{choice}-Side: ").upper()
@@ -194,7 +217,7 @@ Profession Quadrant
 """
 class profession():
   def __init__(self,choice,file):
-    print("\nOUTSET | HALT | VIEW | MILESTONE")
+    print("\nOUTSET | HALT | VIEW | MILESTONE\n")
     professionSides = {"OUTSET":programming.Outset}
 
   def Outset():
@@ -209,7 +232,7 @@ Finance Quadrant
 """
 class finance():
   def __init__(self,choice):
-    print("\nOUTSET | HALT | VIEW | MILESTONE")
+    print("\nOUTSET | HALT | VIEW | MILESTONE\n")
     financeSides = {"OUTSET":programming.Outset}
 
   def Outset():
@@ -224,6 +247,7 @@ if __name__ == "__main__":
     
     # Allocates Excel Files into the program
     files = os.listdir(directory)
+    
     sorted_files = sorted(files, key=lambda x: int(x[0]))
     file_dictionary = {}
     for i, file in enumerate(sorted_files):
