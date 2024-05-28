@@ -575,7 +575,7 @@ class finance():
 
 if __name__ == "__main__":
     # File directory in your machine
-    directory = "/Users/damiamalfaro/Desktop/Materialization/Excel"
+    directory = "FOLDER CONTAINIGN ALL EXCELS"
 
     # Use if necessary:
     delete_ds_store_files(directory)
