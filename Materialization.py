@@ -181,7 +181,8 @@ class mathematics():
     b = np.array(yaxis)
     colors = np.array(countingAccuracies)
     plt.scatter(a,b,c=colors,cmap='plasma')
-    plt.colorbar()
+    cbar = plt.colorbar()
+    cbar.set_label("Accuracy",labelpad=15)
     plt.title(f"{self.choice.title()} Total Hours {totalhours}")
     plt.xlabel("Hours")
     plt.ylabel("Ending Day Time")
@@ -501,8 +502,11 @@ class finance():
     self.choice = choice
     self.file = file
       
-    print("\nMILESTONE\n")
-    financeSides = {"MILESTONE":self.Milestone}
+    print("\nMILESTONE | INPUTS | OUTPUTS | VIEW\n")
+    financeSides = {"MILESTONE":self.Milestone,
+                    "INPUTS":self.Input,
+                    "OUTPUTS":self.Output,
+                    "VIEW":self.View}
     finance_choice = input(f"{choice}-Side: ").upper()
 
     if finance_choice in financeSides:
@@ -570,12 +574,21 @@ class finance():
                   ax.grid(False)
           plt.show() 
 
+  def Input(self):
+    df = pd.read_excel(self.file,sheet_name=1,header=None)
+    print(df)
+    
 
+  def Output(self):
+    pass
+
+  def View(self):
+    pass
 
 
 if __name__ == "__main__":
     # File directory in your machine
-    directory = "FOLDER CONTAINIGN ALL EXCELS"
+    directory = "/Users/damiamalfaro/Desktop/Materialization/Excel"
 
     # Use if necessary:
     delete_ds_store_files(directory)
