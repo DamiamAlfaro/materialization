@@ -11,24 +11,34 @@ The function that starts it all.
 """
 def beginning(file1,file2,file3,file4):
   print("\nMATHEMATICS | PROGRAMMING | PROFESSION | FINANCE\n")
+  otherFunctions = [
+    "Math new milestone ",
+  ]
+  print("[OTHER FUNCTIONS]:\n")
+  for otherFunction in otherFunctions:
+    print(f"[{otherFunction}]")
 
   files = [file1,file2,file3,file4]
         
   sidesofsquare = {"MATHEMATICS":mathematics,
                    "PROGRAMMING":programming,
                    "PROFESSION":profession,
-                   "FINANCE":finance}
-                        
-  choice = input("Side: ").upper()
+                   "FINANCE":finance,
+                   }
   
-  if choice in sidesofsquare:
-      pass
+                        
+  choice = input("\nSide: ").upper()
+  if choice == "MATHNEWMILESTONE":
+    math = sidesofsquare["MATHEMATICS"]("MATHEMATICS",files[0])
+    print(math.Milestone())
+  elif choice in sidesofsquare:
+    keys_list = list(sidesofsquare.keys()).index(choice)
+    sidesofsquare[choice](choice,files[keys_list]) 
   else:
     print("\nAre you cognitively impaired?...\n")
     return
- 
-  keys_list = list(sidesofsquare.keys()).index(choice)
-  sidesofsquare[choice](choice,files[keys_list])
+
+
 
 """
 writing() will be used to record instances of points of time
@@ -202,8 +212,11 @@ class mathematics():
     action = input("-> ")
     match str(action).upper():
         case "NEW":
-          print("\nInput Date as: YYYY-MM-DD\n")
+          print("\nInput Date as: YYYY-MM-DD or 'today'\n")
           date = str(input("-> "))
+          if date == "today":
+            print("hey")
+            date = str(datetime.today()).split(" ")[0]
           try:
               datetime.strptime(date,"%Y-%m-%d")
           except:
