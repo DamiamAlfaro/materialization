@@ -10,11 +10,14 @@ import json
 The function that starts it all.
 """
 def beginning(file1,file2,file3,file4):
-  print("\nMATHEMATICS | PROGRAMMING | PROFESSION | FINANCE\n")
+  print("\n[AMERICA]: | OUTSET | HALT | VIEW | MILESTONE | TESTING |")
+  print("[EUROPE]: | OUTSET | HALT | VIEW | MILESTONE |")
+  print("[ASIA]: | MILESTONE |")
+  print("[OCEANIA]: | MILESTONE |")
   otherFunctions = [
-    "Math new milestone ",
+    "Math new milestone",
   ]
-  print("[OTHER FUNCTIONS]:\n")
+  print("\n[OTHER FUNCTIONS]:\n")
   for otherFunction in otherFunctions:
     print(f"[{otherFunction}]")
 
@@ -118,6 +121,12 @@ class mathematics():
       mathematicsSides[mathematics_choice]()
     else:
       print("\nOh, I see, you are a dumbass...\n")
+
+  """
+  Input Required
+  """
+  def input(self):
+    pass
 
   """
   Annotates the beginning instance time of the Quadrant
