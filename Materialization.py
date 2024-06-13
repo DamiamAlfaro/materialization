@@ -224,7 +224,6 @@ class mathematics():
           print("\nInput Date as: YYYY-MM-DD or 'today'\n")
           date = str(input("-> "))
           if date == "today":
-            print("hey")
             date = str(datetime.today()).split(" ")[0]
           try:
               datetime.strptime(date,"%Y-%m-%d")
